@@ -8,9 +8,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 import pickle
 
-# ============================================
-# Load Titanic train.csv
-# ============================================
 df = pd.read_csv("https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv")
 
 # Rename to match canonical Kaggle column names
@@ -26,9 +23,7 @@ df.rename(columns={
     "Name": "Name"
 }, inplace=True)
 
-# ============================================
 # Feature Engineering
-# ============================================
 
 # Title extraction
 df["Title"] = df["Name"].str.extract(' ([A-Za-z]+)\.', expand=False)
@@ -44,9 +39,7 @@ df["Title"] = df["Title"].replace({"Mlle": "Miss", "Ms": "Miss", "Mme": "Mrs"})
 # Family Size
 df["FamilySize"] = df["SibSp"] + df["Parch"] + 1
 
-# ============================================
 # Select clean features
-# ============================================
 features = [
     "Pclass",
     "Sex",
@@ -62,16 +55,12 @@ features = [
 target = "Survived"
 df = df[features + [target]]
 
-# ============================================
 # Handle missing values
-# ============================================
 df["Age"] = df["Age"].fillna(df["Age"].median())
 df["Fare"] = df["Fare"].fillna(df["Fare"].median())
 df["Embarked"] = df["Embarked"].fillna(df["Embarked"].mode()[0])
 
-# ============================================
 # Split
-# ============================================
 X = df[features]
 y = df[target]
 
@@ -79,9 +68,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# ============================================
 # Preprocessing + Model Pipeline
-# ============================================
 categorical_features = ["Sex", "Embarked", "Title"]
 numeric_features = ["Pclass", "Age", "SibSp", "Parch", "Fare", "FamilySize"]
 
