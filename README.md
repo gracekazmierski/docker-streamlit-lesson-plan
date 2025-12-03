@@ -63,15 +63,16 @@ You can now interact with the Titanic Survival Predictor and modify the UI as pa
 
 ## 5. Build the Docker Image
 From the project root:
-Build the file:
+
+1. Build the docker
 ```
 docker build -t titanic-app .
 ```
-Run the file:
+2. Run the file:
 ```
 docker run -p 8501:8501 titanic-app
 ```
-Then Open:
+3. Then Open:
 ```
 http://localhost:8501
 ```
