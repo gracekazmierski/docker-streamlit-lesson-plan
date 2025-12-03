@@ -80,9 +80,6 @@ Transform the input row with:
 
 encoded = model["preprocess"].transform(input_row)
 
-yaml
-Copy code
-
 Display the encoded matrix using `st.dataframe(encoded, width="stretch")`.
 
 ---
