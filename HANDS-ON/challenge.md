@@ -14,61 +14,81 @@ This document explains each of the required tasks.
 
 ---
 
-## 1. Move all UI inputs into the sidebar
-
-All controls used to collect passenger information should appear in the sidebar
-instead of the main page area. Use `st.sidebar.selectbox`, `st.sidebar.number_input`,
-and other sidebar widgets.
-
-This cleans up the main page and prepares the UI for expansion.
+## Question 1 – Move all inputs into the sidebar
+Move every passenger input widget into the sidebar using `st.sidebar.*`.  
+Inputs include: Pclass, Sex, Age, SibSp, Parch, Fare, Embarked, Full Name.
 
 ---
 
-## 2. Add a “maximum allowed fare” control
-
-Create a slider in the sidebar that sets the highest fare the model is allowed
-to use. If the user enters a fare above this threshold, cap it.
-
-Example:
-- User enters fare = 300  
-- Max allowed fare slider = 90  
-- Effective fare used by the model = 90  
-
-Display the effective fare back to the user.
+## Question 2 – Add a maximum allowed fare control
+Add:
+- A number input for Fare.
+- A slider for “Maximum Allowed Fare”.
+Cap the fare using `fare = min(fare_input, max_fare)`  
+and display the effective fare used.
 
 ---
 
-## 3. Extract and display the passenger’s title
-
-Given a full Titanic-format name like `"Smith, Mr. John"`, extract the title
-(“Mr”) and normalize it into one of the categories used during model training.
-
-Show the extracted title on the main page.
+## Question 3 – Extract and display the passenger title
+Extract the title from the full name (e.g., Mr, Miss, Mrs).  
+Normalize rare titles into the same groups used during model training.  
+Display the final normalized title on the page.
 
 ---
 
-## 4. Add a feature importance chart
-
-The trained model includes a RandomForestClassifier with built-in feature
-importances. Retrieve these values, combine them with the corresponding encoded
-feature names, and visualize them using `st.bar_chart`.
-
-This helps illustrate which inputs influence the model most.
+## Question 4 – Add a feature importance chart
+Retrieve the one-hot encoded feature names.  
+Combine them with the numeric feature names.  
+Plot feature importances from the RandomForest model using `st.bar_chart`.
 
 ---
 
-## 5. Add a checkbox to preview the training dataset
-
+## Question 5 – Add a training-data preview toggle
 Add a checkbox labeled “Show Training Data”.  
-When checked, display the first five rows of the loaded `train.csv`.
-
-This gives users a sense of the underlying dataset and feature structure.
+When selected, display `df.head()`.
 
 ---
 
-## 6. Add a multipage interface
+## Question 6 – Add a multipage interface
+Create a page selector in the sidebar:
+- Predictor page  
+- Data Exploration page  
 
-Use a sidebar page selector such as:
+The Data Exploration page must show:
+- Survival rate by Pclass  
+- Survival rate by Sex  
+- Survival rate by Embarked  
 
-```python
-page = st.sidebar.selectbox("Page", ["Predictor", "Data Exploration"])
+---
+
+## Question 7 – Add probability interpretation
+After prediction, display the raw probability AND an interpretation:
+- ≥ 0.85 → very strong likelihood  
+- 0.50–0.85 → moderate likelihood  
+- < 0.50 → low likelihood  
+
+---
+
+## Question 8 – Add an age distribution plot
+On the Data Exploration page, display an Age distribution chart  
+(e.g., `st.bar_chart(df["Age"])`).
+
+---
+
+## Question 9 – Display the encoded model input
+Transform the input row with:
+
+encoded = model["preprocess"].transform(input_row)
+
+yaml
+Copy code
+
+Display the encoded matrix using `st.dataframe(encoded, width="stretch")`.
+
+---
+
+## Completion
+After completing Questions 1–9:
+1. Test locally with `streamlit run app.py`
+2. Build and run the Docker image
+3. Confirm both versions match in behavior
