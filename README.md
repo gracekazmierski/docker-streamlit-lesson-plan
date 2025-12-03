@@ -1,7 +1,7 @@
 # Titanic Survival Predictor (Docker + Streamlit Workshop)
 
 This repository contains all materials for the Docker + Streamlit hands-on lesson.
-Students clone the repo, run a Streamlit app locally, customize it, and finally
+Students will clone the repo, run a Streamlit app locally, customize it, and finally
 containerize it using Docker.
 
 The machine learning model (Random Forest) is trained locally using Python 3.13 to ensure full compatibility with the Docker image and
@@ -72,14 +72,11 @@ http://localhost:8501
 ```
 The Streamlit app is now running *inside* Docker.
 
-## 6. Exercises for Students
+## 6. Customization Time!
 
-1. Modify the Streamlit UI
-2. Add new input fields
-3. Display model probabilities or charts
-4. Rebuild the Docker image with your changes
-5. Add a second page using st.sidebar
-6. Explore how Docker layers change when modifying code
+Navigate to the `HANDS-ON` folder and find `challenge.md`. This file describes a set of challenges to go through to gain some hands-on experience with Streamlit.
+* `solution.py` contains my method of implementing all of the changes requested in `challenge.md`. Please note your results may not look exactly the same.
+* Run 'streamlit run solution.py' to see the solution in action.
 
 ## Enjoy the Workshop!
 
